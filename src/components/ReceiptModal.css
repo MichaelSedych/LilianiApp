@@ -21,25 +21,11 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.modal-content.success {
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 .modal-content h2 {
   font-size: 28px;
   color: #333;
   margin-bottom: 20px;
+  margin-top: 0;
 }
 
 .modal-content p {
@@ -69,6 +55,7 @@
   cursor: pointer;
   transition: all 0.3s;
   flex: 1;
+  font-weight: 500;
 }
 
 .modal-btn.confirm {
@@ -98,10 +85,17 @@
   color: #666;
   border: 2px solid #ddd;
   width: 200px;
+  margin: 0 auto;
 }
 
 .modal-btn.continue:hover {
   background-color: #e8e8e8;
+  border-color: #999;
+}
+
+.modal-btn.continue:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (max-width: 768px) {
@@ -113,7 +107,15 @@
     font-size: 24px;
   }
 
+  .modal-content p {
+    font-size: 16px;
+  }
+
   .modal-buttons {
     flex-direction: column;
+  }
+
+  .modal-btn.continue {
+    width: 100%;
   }
 }

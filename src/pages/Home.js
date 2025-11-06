@@ -9,8 +9,10 @@ const Home = ({
   onAddWeight, 
   onRemoveWeight,
   showReceiptModal,
+  receiptConfirmed,
   selectedVehicle,
   onConfirmPrint,
+  onContinue,
   onCloseModal
 }) => {
   return (
@@ -28,7 +30,9 @@ const Home = ({
         <ReceiptModal 
           vehicleName={selectedVehicle}
           unloadedWeight={currentWeight}
+          isConfirmed={receiptConfirmed}
           onConfirm={onConfirmPrint}
+          onContinue={onContinue}
           onCancel={onCloseModal}
         />
       )}

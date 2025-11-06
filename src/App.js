@@ -9,6 +9,7 @@ function App() {
   const [bunkerWeight, setBunkerWeight] = useState(0);
   const [loads, setLoads] = useState([]);
   const [showReceiptModal, setShowReceiptModal] = useState(false);
+  const [receiptConfirmed, setReceiptConfirmed] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
 
   const WEIGHT_INCREMENT = 50;
@@ -24,11 +25,17 @@ function App() {
   // Выбрать комбайн на странице транспорта
   const handleSelectVehicle = (vehicleName) => {
     setSelectedVehicle(vehicleName);
+    setReceiptConfirmed(false);
     setShowReceiptModal(true);
   };
 
-  // Подтвердить печать и добавить load
+  // Подтвердить печать (показать "Чек распечатан")
   const handleConfirmPrint = () => {
+    setReceiptConfirmed(true);
+  };
+
+  // Продолжить (закрыть окно и добавить load)
+  const handleContinue = () => {
     const newLoad = {
       id: loads.length + 1,
       date: new Date().toLocaleDateString('ru-RU'),
@@ -40,13 +47,15 @@ function App() {
 
     setLoads(prev => [newLoad, ...prev]);
     setShowReceiptModal(false);
-    setBunkerWeight(0);
+    setReceiptConfirmed(false);
+    // УДАЛИЛИ эту строку: setBunkerWeight(0);
     setSelectedVehicle(null);
   };
 
   // Закрыть модальное окно
   const handleCloseModal = () => {
     setShowReceiptModal(false);
+    setReceiptConfirmed(false);
     setSelectedVehicle(null);
   };
 
@@ -65,8 +74,10 @@ function App() {
                   onAddWeight={handleAddWeight}
                   onRemoveWeight={handleRemoveWeight}
                   showReceiptModal={showReceiptModal}
+                  receiptConfirmed={receiptConfirmed}
                   selectedVehicle={selectedVehicle}
                   onConfirmPrint={handleConfirmPrint}
+                  onContinue={handleContinue}
                   onCloseModal={handleCloseModal}
                 />
               } 
