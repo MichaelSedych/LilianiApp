@@ -4,7 +4,8 @@ import Sidebar from '../components/Sidebar';
 import ReceiptModal from '../components/ReceiptModal';
 
 const Home = ({ 
-  currentWeight, 
+  currentWeight,
+  unloadedWeight,
   loads,
   onAddWeight, 
   onRemoveWeight,
@@ -19,6 +20,7 @@ const Home = ({
     <>
       <BunkerSection 
         currentWeight={currentWeight}
+        unloadedWeight={unloadedWeight}
         status="Загружено"
         onAddWeight={onAddWeight}
         onRemoveWeight={onRemoveWeight}
@@ -29,7 +31,7 @@ const Home = ({
       {showReceiptModal && selectedVehicle && (
         <ReceiptModal 
           vehicleName={selectedVehicle}
-          unloadedWeight={currentWeight}
+          unloadedWeight={unloadedWeight}
           isConfirmed={receiptConfirmed}
           onConfirm={onConfirmPrint}
           onContinue={onContinue}

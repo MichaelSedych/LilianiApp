@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BunkerSection.css';
 
-const BunkerSection = ({ currentWeight, status, onAddWeight, onRemoveWeight }) => {
+const BunkerSection = ({ currentWeight, unloadedWeight, status, onAddWeight, onRemoveWeight }) => {
   const navigate = useNavigate();
   const intervalRef = useRef(null);
   const isLoadingRef = useRef(false);
@@ -56,7 +56,7 @@ const BunkerSection = ({ currentWeight, status, onAddWeight, onRemoveWeight }) =
         {formatWeight(currentWeight)} кг
       </div>
       <div className="status-bar">
-        <div className="weight-info">{formatWeight(currentWeight)} кг</div>
+        <div className="weight-info">{formatWeight(unloadedWeight)} кг</div>
         <div className="status-loaded">{status}</div>
       </div>
       <button className="print-btn" onClick={handlePrint}>

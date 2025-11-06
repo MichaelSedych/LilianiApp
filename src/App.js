@@ -7,6 +7,7 @@ import Transport from './pages/Transport';
 
 function App() {
   const [bunkerWeight, setBunkerWeight] = useState(0);
+  const [unloadedWeight, setUnloadedWeight] = useState(0); // Для status-bar
   const [loads, setLoads] = useState([]);
   const [showReceiptModal, setShowReceiptModal] = useState(false);
   const [receiptConfirmed, setReceiptConfirmed] = useState(false);
@@ -16,10 +17,12 @@ function App() {
 
   const handleAddWeight = () => {
     setBunkerWeight(prev => prev + WEIGHT_INCREMENT);
+    setUnloadedWeight(prev => prev + WEIGHT_INCREMENT);
   };
 
   const handleRemoveWeight = () => {
     setBunkerWeight(prev => (prev - WEIGHT_INCREMENT > 0 ? prev - WEIGHT_INCREMENT : 0));
+    setUnloadedWeight(prev => (prev - WEIGHT_INCREMENT > 0 ? prev - WEIGHT_INCREMENT : 0));
   };
 
   // Выбрать комбайн на странице транспорта
@@ -41,14 +44,14 @@ function App() {
       date: new Date().toLocaleDateString('ru-RU'),
       time: new Date().toLocaleTimeString('ru-RU'),
       truckNumber: selectedVehicle || 'Комбайн',
-      unloadedWeight: `${bunkerWeight.toLocaleString('ru-RU')} кг`,
+      unloadedWeight: `${unloadedWeight.toLocaleString('ru-RU')} кг`,
       remaining: `0 кг`
     };
 
     setLoads(prev => [newLoad, ...prev]);
     setShowReceiptModal(false);
     setReceiptConfirmed(false);
-    // УДАЛИЛИ эту строку: setBunkerWeight(0);
+    setUnloadedWeight(0); // Сбрасываем только выгруженный вес
     setSelectedVehicle(null);
   };
 
@@ -70,6 +73,7 @@ function App() {
               element={
                 <Home 
                   currentWeight={bunkerWeight}
+                  unloadedWeight={unloadedWeight}
                   loads={loads}
                   onAddWeight={handleAddWeight}
                   onRemoveWeight={handleRemoveWeight}
