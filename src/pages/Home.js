@@ -2,7 +2,7 @@ import React from 'react';
 import BunkerSection from '../components/BunkerSection';
 import Sidebar from '../components/Sidebar';
 
-const Home = () => {
+const Home = ({ currentWeight, onAddWeight, onRemoveWeight }) => {
   const loadData = [
     {
       id: 1,
@@ -37,8 +37,10 @@ const Home = () => {
   return (
     <>
       <BunkerSection 
-        currentWeight={23900}
+        currentWeight={currentWeight}
         status="Загружено"
+        onAddWeight={onAddWeight}
+        onRemoveWeight={onRemoveWeight}
       />
       <Sidebar 
         loads={loadData}
