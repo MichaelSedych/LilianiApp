@@ -44,8 +44,8 @@ function App() {
       date: new Date().toLocaleDateString('ru-RU'),
       time: new Date().toLocaleTimeString('ru-RU'),
       truckNumber: selectedVehicle || 'Комбайн',
-      unloadedWeight: `${unloadedWeight.toLocaleString('ru-RU')} кг`,
-      remaining: `0 кг`
+      unloadedWeight: `${unloadedWeight.toLocaleString('ru-RU')} кг`, // выгруженный вес
+      remaining: `${bunkerWeight.toLocaleString('ru-RU')} кг` // остаток = текущий вес в бункере
     };
 
     setLoads(prev => [newLoad, ...prev]);
