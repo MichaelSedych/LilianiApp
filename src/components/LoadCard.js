@@ -13,8 +13,8 @@ const LoadCard = ({ date, time, truckNumber, unloadedWeight, remaining, onPrint 
           </svg>
         </button>
       </div>
-      <div className="Harvester-info">
-        <div className="Harvester-icon">
+      <div className="truck-info">
+        <div className="truck-icon">
           <img  
             src="/assets/Harvester.svg" 
             alt="Harvester icon" 
