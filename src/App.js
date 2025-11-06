@@ -6,14 +6,17 @@ import Home from './pages/Home';
 import Transport from './pages/Transport';
 
 function App() {
-  const [bunkerWeight, setBunkerWeight] = useState(23900);
+  const [bunkerWeight, setBunkerWeight] = useState(0);
+
+  // Измените это значение на нужное вам
+  const WEIGHT_INCREMENT = 5; // кг за раз
 
   const handleAddWeight = () => {
-    setBunkerWeight(prev => prev + 500); // 500 кг за 100мс = 5000 кг/сек, но контролируем через интервал
+    setBunkerWeight(prev => prev + WEIGHT_INCREMENT);
   };
 
   const handleRemoveWeight = () => {
-    setBunkerWeight(prev => (prev - 500 > 0 ? prev - 500 : 0));
+    setBunkerWeight(prev => (prev - WEIGHT_INCREMENT > 0 ? prev - WEIGHT_INCREMENT : 0));
   };
 
   return (
