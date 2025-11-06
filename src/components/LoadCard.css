@@ -1,0 +1,57 @@
+.load-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.date, .time {
+  color: #666;
+}
+
+.print-icon {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.print-icon:hover {
+  transform: scale(1.1);
+}
+
+.truck-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.truck-icon {
+  width: 60px;
+  height: 40px;
+}
+
+.truck-number {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.weight-details {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.weight-details p {
+  margin-bottom: 5px;
+}
