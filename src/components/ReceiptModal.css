@@ -1,0 +1,119 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content.success {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.modal-content p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.vehicle-info {
+  font-size: 16px;
+  color: #999;
+  margin-bottom: 20px !important;
+  font-weight: 500;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.modal-btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  flex: 1;
+}
+
+.modal-btn.confirm {
+  background-color: #c1eaca;
+  color: #2e7d32;
+  border: 2px solid #2e7d32;
+}
+
+.modal-btn.confirm:hover {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.modal-btn.cancel {
+  background-color: #f5f5f5;
+  color: #666;
+  border: 2px solid #ddd;
+}
+
+.modal-btn.cancel:hover {
+  background-color: #e8e8e8;
+  border-color: #999;
+}
+
+.modal-btn.continue {
+  background-color: #f5f5f5;
+  color: #666;
+  border: 2px solid #ddd;
+  width: 200px;
+}
+
+.modal-btn.continue:hover {
+  background-color: #e8e8e8;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 30px 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 24px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+}

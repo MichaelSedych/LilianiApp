@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Transport.css';
 
-const Transport = () => {
+const Transport = ({ onSelectVehicle, currentWeight }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
-    // Добавляем класс к main-content при открытии страницы
     const mainContent = document.querySelector('.main-content');
     mainContent?.classList.add('transport-layout');
 
-    // Убираем класс при закрытии страницы
     return () => {
       mainContent?.classList.remove('transport-layout');
     };
@@ -25,6 +26,12 @@ const Transport = () => {
     { id: 9, name: 'Комбайн А224АС' }
   ];
 
+  const handleVehicleClick = (vehicleName) => {
+    // Передаем выбранный комбайн в App.js и переходим на главную
+    onSelectVehicle(vehicleName);
+    navigate('/');
+  };
+
   return (
     <div className="transport-page">
       <div className="transport-left">
@@ -32,10 +39,12 @@ const Transport = () => {
         <div className="transport-sidebar">
           <div className="vehicle-card-large">
             <div className="vehicle-icon-large">
-              <img  
-                src="/assets/Harvester.svg" 
-                alt="Harvester icon" 
-              />
+              <svg width="120" height="80" viewBox="0 0 120 80">
+                <rect x="20" y="20" width="60" height="40" fill="#4CAF50"/>
+                <rect x="70" y="30" width="30" height="30" fill="#2E7D32"/>
+                <circle cx="40" cy="65" r="8" fill="#333"/>
+                <circle cx="90" cy="65" r="8" fill="#333"/>
+              </svg>
             </div>
             <p className="vehicle-name-large">Комбайн</p>
           </div>
@@ -45,7 +54,11 @@ const Transport = () => {
       <div className="transport-list">
         <div className="vehicle-list">
           {vehicles.map((vehicle) => (
-            <div key={vehicle.id} className="vehicle-item">
+            <div 
+              key={vehicle.id} 
+              className="vehicle-item"
+              onClick={() => handleVehicleClick(vehicle.name)}
+            >
               <span>{vehicle.name}</span>
             </div>
           ))}

@@ -15,17 +15,15 @@ const BunkerSection = ({ currentWeight, status, onAddWeight, onRemoveWeight }) =
     navigate('/transport');
   };
 
-  // Запуск непрерывной загрузки
   const startLoading = () => {
     if (isLoadingRef.current) return;
     isLoadingRef.current = true;
 
     intervalRef.current = setInterval(() => {
       onAddWeight();
-    }, 100); // 50 кг в 100мс = 500 кг в сек, но мы добавляем по 1000 кг, поэтому 100мс
+    }, 100);
   };
 
-  // Остановка загрузки
   const stopLoading = () => {
     isLoadingRef.current = false;
     if (intervalRef.current) {
@@ -34,7 +32,6 @@ const BunkerSection = ({ currentWeight, status, onAddWeight, onRemoveWeight }) =
     }
   };
 
-  // Запуск непрерывной выгрузки
   const startUnloading = () => {
     if (isLoadingRef.current) return;
     isLoadingRef.current = true;
@@ -44,7 +41,6 @@ const BunkerSection = ({ currentWeight, status, onAddWeight, onRemoveWeight }) =
     }, 100);
   };
 
-  // Остановка выгрузки
   const stopUnloading = () => {
     isLoadingRef.current = false;
     if (intervalRef.current) {

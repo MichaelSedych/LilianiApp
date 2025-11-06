@@ -1,39 +1,18 @@
 import React from 'react';
 import BunkerSection from '../components/BunkerSection';
 import Sidebar from '../components/Sidebar';
+import ReceiptModal from '../components/ReceiptModal';
 
-const Home = ({ currentWeight, onAddWeight, onRemoveWeight }) => {
-  const loadData = [
-    {
-      id: 1,
-      date: '28.11.2022',
-      time: '12:12:53',
-      truckNumber: 'а456ер',
-      unloadedWeight: '23 000 кг',
-      remaining: '700 кг'
-    },
-    {
-      id: 2,
-      date: '28.11.2022',
-      time: '12:12:53',
-      truckNumber: 'а456ер',
-      unloadedWeight: '23 000 кг',
-      remaining: '700 кг'
-    },
-    {
-      id: 3,
-      date: '28.11.2022',
-      time: '12:12:53',
-      truckNumber: 'а456ер',
-      unloadedWeight: '23 000 кг',
-      remaining: null
-    }
-  ];
-
-  const handlePrintCard = (id) => {
-    console.log(`Печать карточки ${id}...`);
-  };
-
+const Home = ({ 
+  currentWeight, 
+  loads,
+  onAddWeight, 
+  onRemoveWeight,
+  showReceiptModal,
+  selectedVehicle,
+  onConfirmPrint,
+  onCloseModal
+}) => {
   return (
     <>
       <BunkerSection 
@@ -42,10 +21,17 @@ const Home = ({ currentWeight, onAddWeight, onRemoveWeight }) => {
         onAddWeight={onAddWeight}
         onRemoveWeight={onRemoveWeight}
       />
-      <Sidebar 
-        loads={loadData}
-        onPrintCard={handlePrintCard}
-      />
+      <Sidebar loads={loads} />
+
+      {/* Модальное окно подтверждения печати */}
+      {showReceiptModal && selectedVehicle && (
+        <ReceiptModal 
+          vehicleName={selectedVehicle}
+          unloadedWeight={currentWeight}
+          onConfirm={onConfirmPrint}
+          onCancel={onCloseModal}
+        />
+      )}
     </>
   );
 };
