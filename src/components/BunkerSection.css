@@ -132,3 +132,21 @@
     max-width: 100%;
   }
 }
+
+.print-btn.disabled {
+  opacity: 1;
+  cursor: not-allowed;
+  background-color: #ffe6e6;
+  color: #d32f2f;
+  font-size: 14px;
+  padding: 15px 20px;
+}
+
+.print-btn.disabled:hover {
+  background-color: #ffe6e6;
+  transform: none;
+}
+
+.print-btn:disabled {
+  pointer-events: none;
+}
