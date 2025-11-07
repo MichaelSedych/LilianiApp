@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BunkerSection.css';
 
-const BunkerSection = ({ currentWeight, unloadedWeight, status, onAddWeight, onRemoveWeight, isUnloading }) => {
+const BunkerSection = ({ currentWeight, weightDifference, status, onAddWeight, onRemoveWeight, isLoading, isUnloading }) => {
   const navigate = useNavigate();
   const intervalRef = useRef(null);
   const isLoadingRef = useRef(false);
@@ -11,15 +11,15 @@ const BunkerSection = ({ currentWeight, unloadedWeight, status, onAddWeight, onR
     return weight.toLocaleString('ru-RU');
   };
 
-  // Проверяем, изменился ли вес (если unloadedWeight > 0, значит был изменен)
-  const isPrintDisabled = unloadedWeight === 0;
+  // Проверяем, изменился ли вес
+  const isPrintDisabled = weightDifference === 0;
 
   const handlePrint = () => {
-    if (isPrintDisabled) return; // Не даем нажать, если вес не изменился
+    if (isPrintDisabled) return;
     
     if (isUnloading) {
       navigate('/unloading');
-    } else {
+    } else if (isLoading) {
       navigate('/transport');
     }
   };
@@ -65,7 +65,9 @@ const BunkerSection = ({ currentWeight, unloadedWeight, status, onAddWeight, onR
         {formatWeight(currentWeight)} кг
       </div>
       <div className="status-bar">
-        <div className="weight-info">{formatWeight(unloadedWeight)} кг</div>
+        <div className="weight-info">
+          {weightDifference > 0 ? '+' : ''}{formatWeight(Math.abs(weightDifference))} кг
+        </div>
         <div className="status-loaded">{status}</div>
       </div>
       
