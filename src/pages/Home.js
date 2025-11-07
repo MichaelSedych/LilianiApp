@@ -7,14 +7,17 @@ const Home = ({
   currentWeight,
   unloadedWeight,
   loads,
+  unloadings,
   onAddWeight, 
   onRemoveWeight,
+  onPrintClick,
   showReceiptModal,
   receiptConfirmed,
   selectedVehicle,
   onConfirmPrint,
   onContinue,
-  onCloseModal
+  onCloseModal,
+  isUnloading
 }) => {
   return (
     <>
@@ -24,15 +27,16 @@ const Home = ({
         status="Загружено"
         onAddWeight={onAddWeight}
         onRemoveWeight={onRemoveWeight}
+        isUnloading={isUnloading}
       />
-      <Sidebar loads={loads} />
+      <Sidebar loads={loads} unloadings={unloadings} />
 
-      {/* Модальное окно подтверждения печати */}
       {showReceiptModal && selectedVehicle && (
         <ReceiptModal 
           vehicleName={selectedVehicle}
           unloadedWeight={unloadedWeight}
           isConfirmed={receiptConfirmed}
+          isUnloading={isUnloading}
           onConfirm={onConfirmPrint}
           onContinue={onContinue}
           onCancel={onCloseModal}

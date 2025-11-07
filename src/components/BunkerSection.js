@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BunkerSection.css';
 
-const BunkerSection = ({ currentWeight, unloadedWeight, status, onAddWeight, onRemoveWeight }) => {
+const BunkerSection = ({ currentWeight, unloadedWeight, status, onAddWeight, onRemoveWeight, isUnloading }) => {
   const navigate = useNavigate();
   const intervalRef = useRef(null);
   const isLoadingRef = useRef(false);
@@ -12,7 +12,11 @@ const BunkerSection = ({ currentWeight, unloadedWeight, status, onAddWeight, onR
   };
 
   const handlePrint = () => {
-    navigate('/transport');
+    if (isUnloading) {
+      navigate('/unloading');
+    } else {
+      navigate('/transport');
+    }
   };
 
   const startLoading = () => {
