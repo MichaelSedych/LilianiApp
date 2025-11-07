@@ -6,11 +6,13 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  // Проверяем, находимся ли мы на странице транспорта
+  // Проверяем, находимся ли мы на странице транспорта или отгрузки
   const isTransportPage = location.pathname === '/transport';
+  const isUnloadingPage = location.pathname === '/unloading';
+  const showBackButton = isTransportPage || isUnloadingPage;
   
   const handleButtonClick = () => {
-    if (isTransportPage) {
+    if (showBackButton) {
       navigate('/'); // Возврат на главную
     } else {
       // Здесь можно добавить логику для кнопки "Меню"
@@ -32,7 +34,7 @@ const Header = () => {
           <span>www.liliani.ru</span>
         </div>
         <button className="menu-btn" onClick={handleButtonClick}>
-          {isTransportPage ? 'Назад' : 'Меню'}
+          {showBackButton ? 'Назад' : 'Меню'}
         </button>
       </div>
     </header>

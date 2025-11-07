@@ -39,12 +39,10 @@ const Transport = ({ onSelectVehicle, currentWeight }) => {
         <div className="transport-sidebar">
           <div className="vehicle-card-large">
             <div className="vehicle-icon-large">
-              <svg width="120" height="80" viewBox="0 0 120 80">
-                <rect x="20" y="20" width="60" height="40" fill="#4CAF50"/>
-                <rect x="70" y="30" width="30" height="30" fill="#2E7D32"/>
-                <circle cx="40" cy="65" r="8" fill="#333"/>
-                <circle cx="90" cy="65" r="8" fill="#333"/>
-              </svg>
+              <img   
+                src="/assets/Harvester.svg" 
+                alt="Harvester icon" 
+              />
             </div>
             <p className="vehicle-name-large">Комбайн</p>
           </div>

@@ -38,13 +38,10 @@ const Unloading = ({ onSelectVehicle, currentWeight, prevWeight }) => {
         <div className="unloading-sidebar">
           <div className="vehicle-card-large">
             <div className="vehicle-icon-large">
-              <svg width="120" height="80" viewBox="0 0 120 80">
-                <rect x="10" y="30" width="70" height="30" fill="#4CAF50" stroke="#2E7D32" strokeWidth="2"/>
-                <circle cx="30" cy="65" r="8" fill="#333"/>
-                <circle cx="70" cy="65" r="8" fill="#333"/>
-                <rect x="65" y="15" width="35" height="20" fill="#2E7D32"/>
-                <rect x="70" y="20" width="25" height="10" fill="#90EE90"/>
-              </svg>
+              <img  
+                src="/assets/Truck.svg" 
+                alt="Truck icon"  
+              />
             </div>
             <p className="vehicle-name-large">Автомобиль</p>
           </div>
