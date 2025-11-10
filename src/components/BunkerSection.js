@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BunkerSection.css';
 
-const BunkerSection = ({ currentWeight, weightDifference, status, onAddWeight, onRemoveWeight, isLoading, isUnloading }) => {
+const BunkerSection = ({ currentWeight, weightDifference, onAddWeight, onRemoveWeight, isLoading, isUnloading }) => {
   const navigate = useNavigate();
   const intervalRef = useRef(null);
   const isLoadingRef = useRef(false);
@@ -13,6 +13,15 @@ const BunkerSection = ({ currentWeight, weightDifference, status, onAddWeight, o
 
   // Проверяем, изменился ли вес
   const isPrintDisabled = weightDifference === 0;
+
+  // Определяем текст статуса и знак для веса
+  let statusText = 'Ожидание';
+  let weightSign = '';
+  
+  if (weightDifference !== 0) {
+    statusText = isUnloading ? 'Выгружено' : 'Загружено';
+    weightSign = isUnloading ? '-' : '+';
+  }
 
   const handlePrint = () => {
     if (isPrintDisabled) return;
@@ -66,9 +75,9 @@ const BunkerSection = ({ currentWeight, weightDifference, status, onAddWeight, o
       </div>
       <div className="status-bar">
         <div className="weight-info">
-          {weightDifference > 0 ? '+' : ''}{formatWeight(Math.abs(weightDifference))} кг
+          {weightSign}{formatWeight(Math.abs(weightDifference))} кг
         </div>
-        <div className="status-loaded">{status}</div>
+        <div className="status-loaded">{statusText}</div>
       </div>
       
       <button 
@@ -80,8 +89,13 @@ const BunkerSection = ({ currentWeight, weightDifference, status, onAddWeight, o
           'Печать чека будет доступна после изменения веса'
         ) : (
           <>
-            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.5 22.5H22.5V30H7.5V22.5ZM25.5 27V19.5H4.5V27H1.5C0.67158 27 0 26.3284 0 25.5V10.5C0 9.67158 0.67158 9 1.5 9H28.5C29.3284 9 30 9.67158 30 10.5V25.5C30 26.3284 29.3284 27 28.5 27H25.5ZM4.5 12V15H9V12H4.5ZM7.5 0H22.5C23.3284 0 24 0.67158 24 1.5V6H6V1.5C6 0.67158 6.67158 0 7.5 0Z" fill="#029A4A"/>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path 
+                d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2" 
+                stroke="currentColor" 
+                strokeWidth="2"
+              />
+              <rect x="6" y="14" width="12" height="8" stroke="currentColor" strokeWidth="2"/>
             </svg>
             Печать чека
           </>
