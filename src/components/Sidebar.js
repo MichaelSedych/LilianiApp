@@ -3,19 +3,19 @@ import LoadCard from './LoadCard';
 import './Sidebar.css';
 
 const Sidebar = ({ loads, unloadings }) => {
-  // Формируем единый массив, указывая для каждого элемента его тип транспорта
+  // Формируем единый массив с сортировкой по timestamp
   const allItems = [
     ...loads.map(load => ({
       ...load,
-      transportType: "harvester", // Явно для комбайна
-      transportNumber: load.truckNumber // идентификатор для карточки
+      transportType: "harvester",
+      transportNumber: load.truckNumber
     })),
     ...unloadings.map(unload => ({
       ...unload,
-      transportType: "car", // Явно для автомобиля
-      transportNumber: unload.carName // идентификатор для карточки
+      transportType: "car",
+      transportNumber: unload.carName
     }))
-  ].sort((a, b) => new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`));
+  ].sort((a, b) => b.timestamp - a.timestamp); // Сортируем по timestamp (новые сверху)
 
   return (
     <aside className="sidebar">
@@ -28,7 +28,7 @@ const Sidebar = ({ loads, unloadings }) => {
         <div className="loads-container">
           {allItems.map((item) => (
             <LoadCard
-              key={`entry-${item.id}`}
+              key={`entry-${item.id}-${item.timestamp}`}
               date={item.date}
               time={item.time}
               transportNumber={item.transportNumber}

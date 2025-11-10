@@ -8,13 +8,14 @@ import Unloading from './pages/Unloading';
 
 function App() {
   const [bunkerWeight, setBunkerWeight] = useState(0);
-  const [startWeight, setStartWeight] = useState(0); // Вес на момент последней печати
+  const [startWeight, setStartWeight] = useState(0);
   const [loads, setLoads] = useState([]);
   const [unloadings, setUnloadings] = useState([]);
   const [showReceiptModal, setShowReceiptModal] = useState(false);
   const [receiptConfirmed, setReceiptConfirmed] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [operationType, setOperationType] = useState(null);
+  const [nextId, setNextId] = useState(1); // Общий счетчик ID
 
   const WEIGHT_INCREMENT = 50;
 
@@ -26,12 +27,10 @@ function App() {
     setBunkerWeight(prev => (prev - WEIGHT_INCREMENT > 0 ? prev - WEIGHT_INCREMENT : 0));
   };
 
-  // Вычисляем разницу веса относительно начальной точки
   const weightDifference = bunkerWeight - startWeight;
-  const isLoading = weightDifference > 0; // Если разница положительная — загрузка
-  const isUnloading = weightDifference < 0; // Если отрицательная — отгрузка
+  const isLoading = weightDifference > 0;
+  const isUnloading = weightDifference < 0;
 
-  // Выбрать комбайн на странице Transport
   const handleSelectHarvester = (vehicleName) => {
     setSelectedVehicle(vehicleName);
     setOperationType('load');
@@ -39,7 +38,6 @@ function App() {
     setShowReceiptModal(true);
   };
 
-  // Выбрать автомобиль на странице Unloading
   const handleSelectCar = (vehicleName) => {
     setSelectedVehicle(vehicleName);
     setOperationType('unload');
@@ -47,30 +45,31 @@ function App() {
     setShowReceiptModal(true);
   };
 
-  // Подтвердить печать
   const handleConfirmPrint = () => {
     setReceiptConfirmed(true);
   };
 
-  // Продолжить после печати
   const handleContinue = () => {
+    const now = new Date();
+    const timestamp = now.getTime(); // Используем timestamp для точной сортировки
+    
     if (operationType === 'load') {
-      // Добавляем загрузку (комбайн)
       const newLoad = {
-        id: loads.length + 1,
-        date: new Date().toLocaleDateString('ru-RU'),
-        time: new Date().toLocaleTimeString('ru-RU'),
+        id: nextId,
+        timestamp: timestamp,
+        date: now.toLocaleDateString('ru-RU'),
+        time: now.toLocaleTimeString('ru-RU'),
         truckNumber: selectedVehicle || 'Комбайн',
         unloadedWeight: `${weightDifference.toLocaleString('ru-RU')} кг`,
         remaining: `${bunkerWeight.toLocaleString('ru-RU')} кг`
       };
       setLoads(prev => [newLoad, ...prev]);
     } else {
-      // Добавляем отгрузку (автомобиль)
       const newUnloading = {
-        id: unloadings.length + 1,
-        date: new Date().toLocaleDateString('ru-RU'),
-        time: new Date().toLocaleTimeString('ru-RU'),
+        id: nextId,
+        timestamp: timestamp,
+        date: now.toLocaleDateString('ru-RU'),
+        time: now.toLocaleTimeString('ru-RU'),
         carName: selectedVehicle || 'Автомобиль',
         unloadedWeight: `${Math.abs(weightDifference).toLocaleString('ru-RU')} кг`,
         remaining: `${bunkerWeight.toLocaleString('ru-RU')} кг`
@@ -78,7 +77,7 @@ function App() {
       setUnloadings(prev => [newUnloading, ...prev]);
     }
 
-    // Обновляем начальную точку после печати
+    setNextId(prev => prev + 1); // Увеличиваем общий счетчик
     setStartWeight(bunkerWeight);
     setShowReceiptModal(false);
     setReceiptConfirmed(false);
@@ -86,7 +85,6 @@ function App() {
     setOperationType(null);
   };
 
-  // Закрыть модальное окно
   const handleCloseModal = () => {
     setShowReceiptModal(false);
     setReceiptConfirmed(false);
