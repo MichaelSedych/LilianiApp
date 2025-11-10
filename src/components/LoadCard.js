@@ -40,7 +40,7 @@ const LoadCard = ({
         </div>
       </div>
       <div className="weight-details">
-        <p>{isHarvester ? "Выгруженный вес:" : "Отгружено:"} {unloadedWeight}</p>
+        <p>{isHarvester ? "Загруженный вес:" : "Выгруженный вес:"} {unloadedWeight}</p>
         <p>Остаток: {remaining}</p>
       </div>
     </div>
